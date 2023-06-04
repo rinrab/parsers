@@ -16,7 +16,7 @@ function update() {
         const types = [
             "TAG", "CLOSE TAG", "ATTRIBUTE NAME", "ATTRIBUTE_VALUE", "TEXT"
         ]
-        if (token.type == 0) {
+        if (token.type == 0 && token.value[0] != '?' && token.value[0] != '!') {
             level++;
         }
 

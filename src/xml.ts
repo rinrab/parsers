@@ -41,20 +41,24 @@ namespace XML {
             } else if (text[i] != ' ' && text[i] != '?') {
                 if (isInTag) {
                     let attributeName = "";
-                    while (i < text.length && text[i] != '=') {
+                    while (i < text.length && text[i] != '=' && text[i] != '>') {
                         attributeName += text[i];
                         i++;
                     }
                     tokens.push({ type: TokenType.AttributeName, value: attributeName });
-                    i++;
-                    let attributeValue = "";
-                    while (i < text.length && text[i] != '"') i++;
-                    i++;
-                    while (i < text.length && text[i] != '"') {
-                        attributeValue += text[i];
+                    if (text[i] == '=') {
                         i++;
+                        let attributeValue = "";
+                        while (i < text.length && text[i] != '"' && text[i] != '>') i++;
+                        i++;
+                        while (i < text.length && text[i] != '"') {
+                            attributeValue += text[i];
+                            i++;
+                        }
+                        tokens.push({ type: TokenType.AttributeValue, value: attributeValue });
+                    } else {
+                        i--;
                     }
-                    tokens.push({ type: TokenType.AttributeValue, value: attributeValue });
                 } else {
                     let content = "";
                     while (i < text.length && text[i] != '<') {
