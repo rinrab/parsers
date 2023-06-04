@@ -14,7 +14,7 @@ function update() {
         type.style.marginLeft = ((level > 0) ? level * 20 : 0) + "px";
         type.className = "token";
         const types = [
-            "TAG", "CLOSE TAG", "ATTRIBUTE NAME", "ATTRIBUTE_VALUE", "TEXT"
+            "TAG", "CLOSE TAG", "ATTRIBUTE NAME", "ATTRIBUTE_VALUE", "TEXT", "COMMENT"
         ]
         if (token.type == 0 && token.value[0] != '?' && token.value[0] != '!') {
             level++;

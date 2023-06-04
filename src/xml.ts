@@ -5,6 +5,7 @@ namespace XML {
         AttributeName,
         AttributeValue,
         Text,
+        Comment,
     }
 
     interface Token {
@@ -26,6 +27,19 @@ namespace XML {
                         tagName += text[i++];
                     }
                     tokens.push({ type: TokenType.CloseTag, value: tagName });
+                } else if (text[i] == '!' && text[i + 1] == '-' && text[i + 2] == '-') {
+                    i += 3;
+                    let comment = "";
+                    while (i < text.length) {
+                        if (text[i] == '-' && text[i + 1] == '-' && text[i + 2] == '>') {
+                            break;
+                        } else {
+                            comment += text[i];
+                            i++;
+                        }
+                    }
+                    i += 2;
+                    tokens.push({ type: TokenType.Comment, value: comment });
                 } else {
                     let tagName = "";
                     while (i < text.length && text[i] != ' ' && text[i] != '>') {
@@ -72,8 +86,8 @@ namespace XML {
                         i++;
                     }
                     i--;
-                    if (content != "" && content != " ") {
-                        tokens.push({ type: TokenType.Text, value: content });
+                    if (content.trim() != "") {
+                        tokens.push({ type: TokenType.Text, value: content.trim() });
                     }
                 }
             }
