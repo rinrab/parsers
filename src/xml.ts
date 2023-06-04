@@ -31,7 +31,9 @@ namespace XML {
                     while (i < text.length && text[i] != ' ' && text[i] != '>') {
                         tagName += text[i++];
                     }
-                    isInTag = true;
+                    if (text[i] == ' ') {
+                        isInTag = true;
+                    }
                     tokens.push({ type: TokenType.Tag, value: tagName });
                 }
             } else if (text[i] == '>') {
@@ -65,6 +67,7 @@ namespace XML {
                         }
                         i++;
                     }
+                    i--;
                     if (content != "" && content != " ") {
                         tokens.push({ type: TokenType.Text, value: content });
                     }
