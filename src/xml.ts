@@ -1,5 +1,5 @@
 namespace XML {
-    const enum TokenType {
+    export enum TokenType {
         Tag,
         CloseTag,
         AttributeName,
