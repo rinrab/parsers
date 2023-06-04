@@ -9,7 +9,8 @@ textarea {
     background: black;
     color: white;
     width: 50%;
-    height: 100vh;
+    height: calc(100vh - 8px);
+    margin-top: -7.5px;
     resize: none;
     border-radius: 5px;
 }
